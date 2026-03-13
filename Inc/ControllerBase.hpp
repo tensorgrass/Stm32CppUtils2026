@@ -25,6 +25,7 @@
 #include <message_types.hpp>
 #include <string>
 #include <vector>
+#include <TofVL53L4CD2.hpp>
 
 class ControllerBase {
  public:
@@ -64,23 +65,10 @@ class ControllerBase {
   virtual LedBase* getLedStart() const;
   virtual IRReceiver* getIRReceiver() const;
   virtual FlashMemory* getFlashMemory() const;
+  virtual TofVL53L4CD2* getDistanceTofCenter() const;
+  virtual TofVL53L4CD2* getDistanceTofLeft() const;
+  virtual TofVL53L4CD2* getDistanceTofRight() const;
 
-  virtual void init_gym_mode_gym(UartSerial* uartSerial_value, UartComm* uartComm_value,
-                                 TimerDWT* timerDWTValue, Timer11Delay* timer11Delay_value,
-                                 Servo* servo_left_value, Servo* servo_right_value, Servo* servo_distance_value,
-                                 Encoder* encoder_left_value, Encoder* encoder_right_value);
-
-  virtual void init_gym_mode_fura(UartSerial* uartSerial_value, UartComm* uartComm_value,
-                                  TimerDWT* timerDWTValue, Timer11Delay* timer11Delay_value,
-                                  ADCBase* adc_value,
-                                  TrackerBase* tracker_left_value, TrackerBase* tracker_right_value,
-                                  TrackerBase* distance_left_value, TrackerBase* distance_right_value,
-                                  MotorOneShot125* motor_left_value, MotorOneShot125* motor_right_value,
-                                  ButtonPullup* button_start_value, LedBase* led_start_value);
-
-  virtual void init_fura_mode_gym(Servo* servo_left_value, Servo* servo_right_value, Servo* servo_distance_value,
-                                  Encoder* encoder_left_value, Encoder* encoder_right_value,
-                                  LedBase* led_start_value);
   virtual void init_fura_mode_fura(ADCBase* adc_value,
                                    TrackerBase* tracker_left_value, LedBase* led_tracker_left_value,
                                    TrackerBase* tracker_right_value, LedBase* led_tracker_right_value,
@@ -98,6 +86,19 @@ class ControllerBase {
                                       TrackerBase* tracker_left_value, TrackerBase* tracker_right_value,
                                       MotorTB6612FNG* motor_driver_left_value, MotorTB6612FNG* motor_driver_right_value,
                                       ButtonPullup* button_start_value, IRReceiver* ir_receiver_value, LedBase* led_start_value);
+
+  virtual void init_furafoscan(ADCBase* adc_value,
+                                   TrackerBase* tracker_left_value, LedBase* led_tracker_left_value,
+                                   TrackerBase* tracker_right_value, LedBase* led_tracker_right_value,
+                                   TrackerBase* distance_left_value, LedBase* led_distance_left_value,
+                                   TrackerBase* distance_right_value, LedBase* led_distance_right_value,
+                                   TrackerBase* distance_lateral_left_value, LedBase* led_distance_lateral_left_value,
+                                   TrackerBase* distance_lateral_right_value, LedBase* led_distance_lateral_right_value,
+                                   TrackerBase* distance_central_value, LedBase* led_distance_central_value,
+                                   MotorOneShot125* motor_left_value, MotorOneShot125* motor_right_value,
+                                   ButtonPullup* button_start_value, IRReceiver* ir_receiver, LedBase* led_start_value,
+                                   ButtonPullup* sensor_tilting_value,
+                                   FlashMemory* flash_memory_value);
 
   virtual void serialReceivedData(UART_HandleTypeDef* huart);
   virtual void commReceivedData(UART_HandleTypeDef* huart);
@@ -170,6 +171,10 @@ class ControllerBase {
   LedBase* led_distance_lateral_right;
   TrackerBase* distance_central;  // Puntero al objeto TrackerBase para el canal central
   LedBase* led_distance_central;
+  TofVL53L4CD2* distance_tof_center;
+  TofVL53L4CD2* distance_tof_left;
+  TofVL53L4CD2* distance_tof_right;
+
 
   StructMessage* tx_message;  // Mensaje a transmitir
   StructMessage* rx_message;  // Mensaje recibido

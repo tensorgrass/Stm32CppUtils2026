@@ -152,55 +152,18 @@ FlashMemory* ControllerBase::getFlashMemory() const {
   return flash_memory;
 }
 
-void ControllerBase::init_gym_mode_gym(UartSerial* uartSerial_value, UartComm* uartComm_value,
-                                       TimerDWT* timerDWT_value, Timer11Delay* timer11Delay_value,
-                                       Servo* servo_left_value, Servo* servo_right_value, Servo* servo_distance_value,
-                                       Encoder* encoder_left_value, Encoder* encoder_right_value) {
-  uartSerial = uartSerial_value;
-  uartComm = uartComm_value;
-  timerDWT = timerDWT_value;
-  timer11Delay = timer11Delay_value;
-  servo_left = servo_left_value;
-  servo_right = servo_right_value;
-  servo_distance = servo_distance_value;
-  encoder_left = encoder_left_value;
-  encoder_right = encoder_right_value;
+TofVL53L4CD2* ControllerBase::getDistanceTofCenter() const {
+  return distance_tof_center;
 }
 
-void ControllerBase::init_gym_mode_fura(UartSerial* uartSerial_value, UartComm* uartComm_value,
-                                        TimerDWT* timerDWT_value, Timer11Delay* timer11Delay_value,
-                                        ADCBase* adc_value,
-                                        TrackerBase* tracker_left_value, TrackerBase* tracker_right_value,
-                                        TrackerBase* distance_left_value, TrackerBase* distance_right_value,
-                                        MotorOneShot125* motor_left_value, MotorOneShot125* motor_right_value,
-                                        ButtonPullup* button_start_value, LedBase* led_start_value) {
-  uartSerial = uartSerial_value;
-  uartComm = uartComm_value;
-  timerDWT = timerDWT_value;
-  timer11Delay = timer11Delay_value;
-  adc = adc_value;
-  tracker_left = tracker_left_value;
-  tracker_right = tracker_right_value;
-  distance_left = distance_left_value;
-  distance_right = distance_right_value;
-  motor_left = motor_left_value;
-  motor_right = motor_right_value;
-  button_start = button_start_value;
-  led_start = led_start_value;
+TofVL53L4CD2* ControllerBase::getDistanceTofLeft() const {
+  return distance_tof_left;
 }
 
-void ControllerBase::init_fura_mode_gym(Servo* servo_left_value, Servo* servo_right_value, Servo* servo_distance_value,
-                                        Encoder* encoder_left_value, Encoder* encoder_right_value,
-                                        LedBase* led_start_value) {
-  servo_left = servo_left_value;
-  servo_right = servo_right_value;
-  servo_distance = servo_distance_value;
-
-  encoder_left = encoder_left_value;
-  encoder_right = encoder_right_value;
-
-  led_start = led_start_value;
+TofVL53L4CD2* ControllerBase::getDistanceTofRight() const {
+  return distance_tof_right;
 }
+
 
 void ControllerBase::init_fura_mode_fura(ADCBase* adc_value,
                                          TrackerBase* tracker_left_value, LedBase* led_tracker_left_value,
@@ -259,6 +222,48 @@ void ControllerBase::init_fura_mode_sumaker(ADCBase* adc_value,
   ir_receiver = ir_receiver_value;
   led_start = led_start_value;
 }
+
+void ControllerBase::init_furafoscan(ADCBase* adc_value,
+									 TrackerBase* tracker_left_value, LedBase* led_tracker_left_value,
+									 TrackerBase* tracker_right_value, LedBase* led_tracker_right_value,
+									 TrackerBase* distance_left_value, LedBase* led_distance_left_value,
+									 TrackerBase* distance_right_value, LedBase* led_distance_right_value,
+									 TrackerBase* distance_lateral_left_value, LedBase* led_distance_lateral_left_value,
+									 TrackerBase* distance_lateral_right_value, LedBase* led_distance_lateral_right_value,
+									 TrackerBase* distance_central_value, LedBase* led_distance_central_value,
+									 MotorOneShot125* motor_left_value, MotorOneShot125* motor_right_value,
+									 ButtonPullup* button_start_value, IRReceiver* ir_receiver_value, LedBase* led_start_value,
+									 ButtonPullup* sensor_tilting_value,
+									 FlashMemory* flash_memory_value) {
+  adc = adc_value;
+  tracker_left = tracker_left_value;
+  led_tracker_left = led_tracker_left_value;
+  tracker_right = tracker_right_value;
+  led_tracker_right = led_tracker_right_value;
+  distance_left = distance_left_value;
+  led_distance_left = led_distance_left_value;
+  distance_right = distance_right_value;
+  led_distance_right = led_distance_right_value;
+  distance_lateral_left = distance_lateral_left_value;
+  led_distance_lateral_left = led_distance_lateral_left_value;
+  distance_lateral_right = distance_lateral_right_value;
+  led_distance_lateral_right = led_distance_lateral_right_value;
+  distance_central = distance_central_value;
+  led_distance_central = led_distance_central_value;
+
+  motor_left = motor_left_value;
+  motor_right = motor_right_value;
+
+  button_start = button_start_value;
+  ir_receiver = ir_receiver_value;
+  led_start = led_start_value;
+
+  sensor_tilting = sensor_tilting_value;
+
+  flash_memory = flash_memory_value;
+}
+
+
 
 void ControllerBase::serialReceivedData(UART_HandleTypeDef* huart) {
   std::string selected_option = uartSerial->receiveData(huart);
