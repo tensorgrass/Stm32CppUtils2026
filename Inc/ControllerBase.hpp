@@ -26,6 +26,7 @@
 #include <string>
 #include <vector>
 #include <TofVL53L4CD2.hpp>
+#include <GyroBMI160.hpp>
 
 class ControllerBase {
  public:
@@ -52,8 +53,8 @@ class ControllerBase {
   virtual LedBase* getLedDistanceLateralLeft() const;
   virtual TrackerBase* getDistanceLateralRight() const;
   virtual LedBase* getLedDistanceLateralRight() const;
-  virtual TrackerBase* getDistanceCentral() const;
-  virtual LedBase* getLedDistanceCentral() const;
+  virtual TrackerBase* getDistanceCenter() const;
+  virtual LedBase* getLedDistanceCenter() const;
   virtual MotorOneShot125* getMotorLeft() const;
   virtual MotorOneShot125* getMotorRight() const;
   virtual MotorTB6612FNG* getMotorDriverLeft() const;
@@ -65,9 +66,10 @@ class ControllerBase {
   virtual LedBase* getLedStart() const;
   virtual IRReceiver* getIRReceiver() const;
   virtual FlashMemory* getFlashMemory() const;
-  virtual TofVL53L4CD2* getDistanceTofCenter() const;
   virtual TofVL53L4CD2* getDistanceTofLeft() const;
   virtual TofVL53L4CD2* getDistanceTofRight() const;
+  virtual TofVL53L4CD2* getDistanceTofCenter() const;
+  virtual GyroBMI160* getSensorGyro() const;
 
   virtual void init_fura_mode_fura(ADCBase* adc_value,
                                    TrackerBase* tracker_left_value, LedBase* led_tracker_left_value,
@@ -76,7 +78,7 @@ class ControllerBase {
                                    TrackerBase* distance_right_value, LedBase* led_distance_right_value,
                                    TrackerBase* distance_lateral_left_value, LedBase* led_distance_lateral_left_value,
                                    TrackerBase* distance_lateral_right_value, LedBase* led_distance_lateral_right_value,
-                                   TrackerBase* distance_central_value, LedBase* led_distance_central_value,
+                                   TrackerBase* distance_center_value, LedBase* led_distance_center_value,
                                    MotorOneShot125* motor_left_value, MotorOneShot125* motor_right_value,
                                    ButtonPullup* button_start_value, IRReceiver* ir_receiver, LedBase* led_start_value,
                                    ButtonPullup* sensor_tilting_value,
@@ -88,17 +90,15 @@ class ControllerBase {
                                       ButtonPullup* button_start_value, IRReceiver* ir_receiver_value, LedBase* led_start_value);
 
   virtual void init_furafoscan(ADCBase* adc_value,
-                                   TrackerBase* tracker_left_value, LedBase* led_tracker_left_value,
-                                   TrackerBase* tracker_right_value, LedBase* led_tracker_right_value,
-                                   TrackerBase* distance_left_value, LedBase* led_distance_left_value,
-                                   TrackerBase* distance_right_value, LedBase* led_distance_right_value,
-                                   TrackerBase* distance_lateral_left_value, LedBase* led_distance_lateral_left_value,
-                                   TrackerBase* distance_lateral_right_value, LedBase* led_distance_lateral_right_value,
-                                   TrackerBase* distance_central_value, LedBase* led_distance_central_value,
-                                   MotorOneShot125* motor_left_value, MotorOneShot125* motor_right_value,
-                                   ButtonPullup* button_start_value, IRReceiver* ir_receiver, LedBase* led_start_value,
-                                   ButtonPullup* sensor_tilting_value,
-                                   FlashMemory* flash_memory_value);
+                               TrackerBase* tracker_left_value,
+                               TrackerBase* tracker_right_value,
+							   TofVL53L4CD2* distance_tof_left_value,
+							   TofVL53L4CD2* distance_tof_right_value,
+							   TofVL53L4CD2* distance_tof_center_value,
+                               MotorOneShot125* motor_left_value, MotorOneShot125* motor_right_value,
+                               ButtonPullup* button_start_value, IRReceiver* ir_receiver, LedBase* led_start_value,
+							   GyroBMI160* sensor_gyro_value,
+                               FlashMemory* flash_memory_value);
 
   virtual void serialReceivedData(UART_HandleTypeDef* huart);
   virtual void commReceivedData(UART_HandleTypeDef* huart);
@@ -169,12 +169,12 @@ class ControllerBase {
   LedBase* led_distance_lateral_left;
   TrackerBase* distance_lateral_right;  // Puntero al objeto TrackerBase para el canal derecho
   LedBase* led_distance_lateral_right;
-  TrackerBase* distance_central;  // Puntero al objeto TrackerBase para el canal central
-  LedBase* led_distance_central;
-  TofVL53L4CD2* distance_tof_center;
+  TrackerBase* distance_center;  // Puntero al objeto TrackerBase para el canal center
+  LedBase* led_distance_center;
   TofVL53L4CD2* distance_tof_left;
   TofVL53L4CD2* distance_tof_right;
-
+  TofVL53L4CD2* distance_tof_center;
+  GyroBMI160* sensor_gyro;
 
   StructMessage* tx_message;  // Mensaje a transmitir
   StructMessage* rx_message;  // Mensaje recibido

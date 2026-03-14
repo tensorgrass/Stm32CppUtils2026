@@ -100,12 +100,12 @@ LedBase* ControllerBase::getLedDistanceLateralRight() const {
   return led_distance_lateral_right;
 }
 
-TrackerBase* ControllerBase::getDistanceCentral() const {
-  return distance_central;
+TrackerBase* ControllerBase::getDistanceCenter() const {
+  return distance_center;
 }
 
-LedBase* ControllerBase::getLedDistanceCentral() const {
-  return led_distance_central;
+LedBase* ControllerBase::getLedDistanceCenter() const {
+  return led_distance_center;
 }
 
 MotorOneShot125* ControllerBase::getMotorLeft() const {
@@ -164,6 +164,9 @@ TofVL53L4CD2* ControllerBase::getDistanceTofRight() const {
   return distance_tof_right;
 }
 
+GyroBMI160* ControllerBase::getSensorGyro() const {
+  return sensor_gyro;
+}
 
 void ControllerBase::init_fura_mode_fura(ADCBase* adc_value,
                                          TrackerBase* tracker_left_value, LedBase* led_tracker_left_value,
@@ -172,7 +175,7 @@ void ControllerBase::init_fura_mode_fura(ADCBase* adc_value,
                                          TrackerBase* distance_right_value, LedBase* led_distance_right_value,
                                          TrackerBase* distance_lateral_left_value, LedBase* led_distance_lateral_left_value,
                                          TrackerBase* distance_lateral_right_value, LedBase* led_distance_lateral_right_value,
-                                         TrackerBase* distance_central_value, LedBase* led_distance_central_value,
+                                         TrackerBase* distance_center_value, LedBase* led_distance_center_value,
                                          MotorOneShot125* motor_left_value, MotorOneShot125* motor_right_value,
                                          ButtonPullup* button_start_value, IRReceiver* ir_receiver_value, LedBase* led_start_value,
                                          ButtonPullup* sensor_tilting_value,
@@ -190,8 +193,8 @@ void ControllerBase::init_fura_mode_fura(ADCBase* adc_value,
   led_distance_lateral_left = led_distance_lateral_left_value;
   distance_lateral_right = distance_lateral_right_value;
   led_distance_lateral_right = led_distance_lateral_right_value;
-  distance_central = distance_central_value;
-  led_distance_central = led_distance_central_value;
+  distance_center = distance_center_value;
+  led_distance_center = led_distance_center_value;
 
   motor_left = motor_left_value;
   motor_right = motor_right_value;
@@ -224,32 +227,21 @@ void ControllerBase::init_fura_mode_sumaker(ADCBase* adc_value,
 }
 
 void ControllerBase::init_furafoscan(ADCBase* adc_value,
-									 TrackerBase* tracker_left_value, LedBase* led_tracker_left_value,
-									 TrackerBase* tracker_right_value, LedBase* led_tracker_right_value,
-									 TrackerBase* distance_left_value, LedBase* led_distance_left_value,
-									 TrackerBase* distance_right_value, LedBase* led_distance_right_value,
-									 TrackerBase* distance_lateral_left_value, LedBase* led_distance_lateral_left_value,
-									 TrackerBase* distance_lateral_right_value, LedBase* led_distance_lateral_right_value,
-									 TrackerBase* distance_central_value, LedBase* led_distance_central_value,
+									 TrackerBase* tracker_left_value,
+									 TrackerBase* tracker_right_value,
+									 TofVL53L4CD2* distance_tof_left_value,
+									 TofVL53L4CD2* distance_tof_right_value,
+									 TofVL53L4CD2* distance_tof_center_value,
 									 MotorOneShot125* motor_left_value, MotorOneShot125* motor_right_value,
 									 ButtonPullup* button_start_value, IRReceiver* ir_receiver_value, LedBase* led_start_value,
-									 ButtonPullup* sensor_tilting_value,
+									 GyroBMI160* sensor_gyro_value,
 									 FlashMemory* flash_memory_value) {
   adc = adc_value;
   tracker_left = tracker_left_value;
-  led_tracker_left = led_tracker_left_value;
   tracker_right = tracker_right_value;
-  led_tracker_right = led_tracker_right_value;
-  distance_left = distance_left_value;
-  led_distance_left = led_distance_left_value;
-  distance_right = distance_right_value;
-  led_distance_right = led_distance_right_value;
-  distance_lateral_left = distance_lateral_left_value;
-  led_distance_lateral_left = led_distance_lateral_left_value;
-  distance_lateral_right = distance_lateral_right_value;
-  led_distance_lateral_right = led_distance_lateral_right_value;
-  distance_central = distance_central_value;
-  led_distance_central = led_distance_central_value;
+  distance_tof_left = distance_tof_left_value;
+  distance_tof_right = distance_tof_right_value;
+  distance_tof_center = distance_tof_center_value;
 
   motor_left = motor_left_value;
   motor_right = motor_right_value;
@@ -258,7 +250,7 @@ void ControllerBase::init_furafoscan(ADCBase* adc_value,
   ir_receiver = ir_receiver_value;
   led_start = led_start_value;
 
-  sensor_tilting = sensor_tilting_value;
+  sensor_gyro = sensor_gyro_value;
 
   flash_memory = flash_memory_value;
 }
