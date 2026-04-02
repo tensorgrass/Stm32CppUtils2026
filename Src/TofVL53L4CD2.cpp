@@ -85,21 +85,24 @@ bool TofVL53L4CD2::isReady() {
 }
 
 uint16_t TofVL53L4CD2::getDistance(uint16_t min_distance, uint16_t max_distance) {
-  uint16_t distance = 0;
-//  if(is_ready) {
-	/* (Mandatory) Clear HW interrupt to restart measurements */
-	VL53L4CD_ClearInterrupt(dev);
+  uint16_t distance = 999;
+  if(isReady()) {
+    /* (Mandatory) Clear HW interrupt to restart measurements */
+    VL53L4CD_ClearInterrupt(dev);
 
-	/* Read measured distance. RangeStatus = 0 means valid data */
-	VL53L4CD_GetResult(dev, &results);
-	if (results.range_status == 0) {
-	  if (results.distance_mm > min_distance && results.distance_mm < max_distance) {
-		distance = results.distance_mm;
-	  }
+    /* Read measured distance. RangeStatus = 0 means valid data */
+    VL53L4CD_GetResult(dev, &results);
+    if (results.range_status == 0) {
+      if (results.distance_mm > min_distance && results.distance_mm < max_distance) {
+        distance = results.distance_mm;
+      }
     }
-//  }
-  last_distance = distance;
-  return distance;
+    last_distance = distance;
+    return distance;
+  }
+  else {
+    return last_distance;
+  }
 }
 
 uint16_t TofVL53L4CD2::getLastDistance() {
