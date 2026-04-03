@@ -25,6 +25,7 @@
 #include <message_types.hpp>
 #include <string>
 #include <vector>
+#include <array>
 #include <TofVL53L4CD2.hpp>
 #include <GyroBMI160.hpp>
 
