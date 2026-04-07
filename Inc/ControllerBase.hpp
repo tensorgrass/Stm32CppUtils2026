@@ -15,6 +15,7 @@
 #include <IRReceiver.hpp>
 #include <LedBase.hpp>
 #include <MotorOneShot125.hpp>
+#include <MotorPWM.hpp>
 #include <MotorTB6612FNG.hpp>
 #include <Servo.hpp>
 #include <Timer11Delay.hpp>
@@ -56,8 +57,10 @@ class ControllerBase {
   virtual LedBase* getLedDistanceLateralRight() const;
   virtual TrackerBase* getDistanceCenter() const;
   virtual LedBase* getLedDistanceCenter() const;
-  virtual MotorOneShot125* getMotorLeft() const;
-  virtual MotorOneShot125* getMotorRight() const;
+  virtual MotorOneShot125* getMotorOneshot125Left() const;
+  virtual MotorOneShot125* getMotorOneshot125Right() const;
+  virtual MotorPWM* getMotorPWMLeft() const;
+  virtual MotorPWM* getMotorPWMRight() const;
   virtual MotorTB6612FNG* getMotorDriverLeft() const;
   virtual MotorTB6612FNG* getMotorDriverRight() const;
   virtual Encoder* getEncoderLeft() const;
@@ -93,12 +96,13 @@ class ControllerBase {
   virtual void init_furafoscan(ADCBase* adc_value,
                                TrackerBase* tracker_left_value,
                                TrackerBase* tracker_right_value,
-							   TofVL53L4CD2* distance_tof_left_value,
-							   TofVL53L4CD2* distance_tof_right_value,
-							   TofVL53L4CD2* distance_tof_center_value,
-                               MotorOneShot125* motor_left_value, MotorOneShot125* motor_right_value,
+							                 TofVL53L4CD2* distance_tof_left_value,
+							                 TofVL53L4CD2* distance_tof_right_value,
+							                 TofVL53L4CD2* distance_tof_center_value,
+                               MotorOneShot125* motor_oneshot125_left_value, MotorOneShot125* motor_oneshot125_right_value,
+                               MotorPWM* motor_pwm_left_value, MotorPWM* motor_pwm_right_value,
                                ButtonPullup* button_start_value, IRReceiver* ir_receiver, LedBase* led_start_value,
-							   GyroBMI160* sensor_gyro_value,
+							                 GyroBMI160* sensor_gyro_value,
                                FlashMemory* flash_memory_value);
 
   virtual void serialReceivedData(UART_HandleTypeDef* huart);
@@ -180,8 +184,10 @@ class ControllerBase {
   StructMessage* tx_message;  // Mensaje a transmitir
   StructMessage* rx_message;  // Mensaje recibido
 
-  MotorOneShot125* motor_left;
-  MotorOneShot125* motor_right;
+  MotorOneShot125* motor_oneshot125_left;
+  MotorOneShot125* motor_oneshot125_right;
+  MotorPWM* motor_pwm_left;
+  MotorPWM* motor_pwm_right;
   MotorTB6612FNG* motor_driver_left;
   MotorTB6612FNG* motor_driver_right;
 

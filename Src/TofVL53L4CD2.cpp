@@ -13,6 +13,7 @@ TofVL53L4CD2::TofVL53L4CD2(GPIO_TypeDef* gpiox_value, uint16_t gpio_pin_value) :
   HAL_GPIO_WritePin(GPIOB, GPIO_PIN_3, GPIO_PIN_RESET);
   dev = 0x52;
   HAL_Delay(5);
+  last_distance = 999;
 }
 
 TofVL53L4CD2::~TofVL53L4CD2() {
