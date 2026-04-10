@@ -24,6 +24,12 @@ GyroBMI160::~GyroBMI160() {
 
 void GyroBMI160::read_values() {
 	BMI160_Read_All(hi2c, &myAccel, &myGyro);
+	if (myAccel.y != prev_accel_y) {
+	  tick_change = HAL_GetTick() - tick_ini;
+	  tick_ini = HAL_GetTick();
+	  prev_accel_y = myAccel.y;
+	}
+	tick_tmp = HAL_GetTick() - tick_ini;
 }
 
 int16_t GyroBMI160::get_accel_x() {

@@ -29,6 +29,11 @@ private:
   I2C_HandleTypeDef *hi2c;
   BMI160_RawData_t myAccel, myGyro;
 
+
+  uint32_t tick_ini = 0;
+  uint32_t tick_change = 0;
+  uint32_t tick_tmp = 0;
+  int16_t prev_accel_y = 0;
 };
 
 #endif /* GYROBMI160_H_ */

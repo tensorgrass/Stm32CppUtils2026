@@ -22,6 +22,8 @@ IRReceiver::~IRReceiver() {
 
 void IRReceiver::setNecType(){
 	ir_type = enum_ir_type::NEC;
+  is_data_ready_nec = false;
+  is_data_ready_rc5sumo = false;
 }
 
 bool IRReceiver::isNecType(){
