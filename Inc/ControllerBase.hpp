@@ -105,6 +105,20 @@ class ControllerBase {
 							                 GyroBMI160* sensor_gyro_value,
                                FlashMemory* flash_memory_value);
 
+  virtual void init_sumoalcarras(ADCBase* adc_value,
+                               TrackerBase* tracker_left_value,
+                               TrackerBase* tracker_right_value,
+                               TofVL53L4CD2* distance_tof_left_value,
+                               TofVL53L4CD2* distance_tof_right_value,
+                               TofVL53L4CD2* distance_tof_center_value,
+                               MotorOneShot125* motor_oneshot125_left_value, MotorOneShot125* motor_oneshot125_right_value,
+                               MotorPWM* motor_pwm_left_value, MotorPWM* motor_pwm_right_value,
+                               ButtonPullup* button_start_value, IRReceiver* ir_receiver, LedBase* led_start_value,
+                               GyroBMI160* sensor_gyro_value,
+                               FlashMemory* flash_memory_value,
+                               Servo* servo_left_value,
+                               Servo* servo_right_value);
+
   virtual void serialReceivedData(UART_HandleTypeDef* huart);
   virtual void commReceivedData(UART_HandleTypeDef* huart);
   virtual void commSendData();

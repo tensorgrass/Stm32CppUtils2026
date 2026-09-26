@@ -266,6 +266,42 @@ void ControllerBase::init_furafoscan(ADCBase* adc_value,
   flash_memory = flash_memory_value;
 }
 
+void ControllerBase::init_sumoalcarras(ADCBase* adc_value,
+                   TrackerBase* tracker_left_value,
+                   TrackerBase* tracker_right_value,
+                   TofVL53L4CD2* distance_tof_left_value,
+                   TofVL53L4CD2* distance_tof_right_value,
+                   TofVL53L4CD2* distance_tof_center_value,
+                   MotorOneShot125* motor_oneshot125_left_value, MotorOneShot125* motor_oneshot125_right_value,
+                   MotorPWM* motor_pwm_left_value, MotorPWM* motor_pwm_right_value,
+                   ButtonPullup* button_start_value, IRReceiver* ir_receiver_value, LedBase* led_start_value,
+                   GyroBMI160* sensor_gyro_value,
+                   FlashMemory* flash_memory_value,
+                   Servo* servo_left_value,
+                   Servo* servo_right_value) {
+  adc = adc_value;
+  tracker_left = tracker_left_value;
+  tracker_right = tracker_right_value;
+  distance_tof_left = distance_tof_left_value;
+  distance_tof_right = distance_tof_right_value;
+  distance_tof_center = distance_tof_center_value;
+
+  motor_oneshot125_left = motor_oneshot125_left_value;
+  motor_oneshot125_right = motor_oneshot125_right_value;
+  motor_pwm_left = motor_pwm_left_value;
+  motor_pwm_right = motor_pwm_right_value;
+
+  button_start = button_start_value;
+  ir_receiver = ir_receiver_value;
+  led_start = led_start_value;
+
+  sensor_gyro = sensor_gyro_value;
+
+  flash_memory = flash_memory_value;
+
+  servo_left = servo_left_value;
+  servo_right = servo_right_value;
+}
 
 
 void ControllerBase::serialReceivedData(UART_HandleTypeDef* huart) {
