@@ -248,6 +248,7 @@ void ControllerBase::init_furafoscan(ADCBase* adc_value,
   adc = adc_value;
   tracker_left = tracker_left_value;
   tracker_right = tracker_right_value;
+
   distance_tof_left = distance_tof_left_value;
   distance_tof_right = distance_tof_right_value;
   distance_tof_center = distance_tof_center_value;
@@ -269,11 +270,15 @@ void ControllerBase::init_furafoscan(ADCBase* adc_value,
 void ControllerBase::init_sumoalcarras(ADCBase* adc_value,
                    TrackerBase* tracker_left_value,
                    TrackerBase* tracker_right_value,
+                   LedBase* led_tracker_left_value,
+                   LedBase* led_tracker_right_value,
                    TofVL53L4CD2* distance_tof_left_value,
                    TofVL53L4CD2* distance_tof_right_value,
                    TofVL53L4CD2* distance_tof_center_value,
+                   LedBase* led_distance_left_value,
+                   LedBase* led_distance_right_value,
+                   LedBase* led_distance_center_value,
                    MotorOneShot125* motor_oneshot125_left_value, MotorOneShot125* motor_oneshot125_right_value,
-                   MotorPWM* motor_pwm_left_value, MotorPWM* motor_pwm_right_value,
                    ButtonPullup* button_start_value, IRReceiver* ir_receiver_value, LedBase* led_start_value,
                    GyroBMI160* sensor_gyro_value,
                    FlashMemory* flash_memory_value,
@@ -282,14 +287,18 @@ void ControllerBase::init_sumoalcarras(ADCBase* adc_value,
   adc = adc_value;
   tracker_left = tracker_left_value;
   tracker_right = tracker_right_value;
+  led_tracker_left = led_tracker_left_value;
+  led_tracker_right = led_tracker_right_value;
+
   distance_tof_left = distance_tof_left_value;
   distance_tof_right = distance_tof_right_value;
   distance_tof_center = distance_tof_center_value;
+  led_distance_left = led_distance_left_value;
+  led_distance_right = led_distance_right_value;
+  led_distance_center = led_distance_center_value;
 
   motor_oneshot125_left = motor_oneshot125_left_value;
   motor_oneshot125_right = motor_oneshot125_right_value;
-  motor_pwm_left = motor_pwm_left_value;
-  motor_pwm_right = motor_pwm_right_value;
 
   button_start = button_start_value;
   ir_receiver = ir_receiver_value;

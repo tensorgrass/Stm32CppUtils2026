@@ -4,6 +4,14 @@
  *  Created on: Jun 9, 2025
  *      Author: froilan
  */
+
+//Parámetro,Valor a configurar,Notas
+//Prescaler (PSC),99,Divide 100 MHz entre 100 →1 MHz
+//Counter Period (ARR),19999,Genera el periodo de 20 ms
+//Internal Clock Division,No division,Mantiene los 100 MHz directos
+//Auto-reload preload,Enable,Evita fallos de glitching al cambiar valores de PWM
+//Pulse (Canal 3 / Canal 4),1500,Posición inicial al centro (90∘)
+
 #include "Servo.hpp"
 
 Servo::Servo(TIM_HandleTypeDef *htim_value, uint32_t channel_value) {
@@ -27,11 +35,11 @@ void Servo::setPosition(uint16_t angle) {
     // Los valores de 500us a 2500us (0.5ms a 2.5ms) son comunes para 0-180 grados.
     // Ajusta si tu servo tiene un rango diferente.
     // Aquí usamos un rango típico de 1000us a 2000us para 0-180 grados.
-    uint32_t pulse_us = 500 + (angle * 2000 / 180);
+    uint32_t pulse_us = SERVO_MIN_PULSE + ((SERVO_MAX_PULSE - SERVO_MIN_PULSE) * angle) / 180;
 
     // Asegurarse de que el pulso esté dentro de límites seguros para el servo.
-    if (pulse_us < 500) pulse_us = 500;
-    if (pulse_us > 2500) pulse_us = 2500;
+    if (pulse_us < SERVO_MIN_PULSE) pulse_us = SERVO_MIN_PULSE;
+    if (pulse_us > SERVO_MAX_PULSE) pulse_us = SERVO_MAX_PULSE;
 
     __HAL_TIM_SET_COMPARE(htim, channel, pulse_us);
 }
