@@ -21,6 +21,7 @@ public:
   ~Servo() = default;
 
   void setPosition(uint16_t angle);
+  void setPulse(uint32_t pulse_us);
 protected:
   TIM_HandleTypeDef *htim;
   uint32_t channel;

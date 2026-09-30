@@ -44,4 +44,8 @@ void Servo::setPosition(uint16_t angle) {
     __HAL_TIM_SET_COMPARE(htim, channel, pulse_us);
 }
 
+void Servo::setPulse(uint32_t pulse_us) {
+  __HAL_TIM_SET_COMPARE(htim, channel, pulse_us);
+}
+
 
